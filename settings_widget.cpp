@@ -19,6 +19,8 @@ Settings_Widget::Settings_Widget(QWidget *parent)
     QPushButton* ok_button = new QPushButton("ok");
     QPushButton* cancel_button = new QPushButton("cancel");
 
+    connect(cancel_button, SIGNAL(clicked()), this, SLOT(cancel_slot()));
+
     music_slider->setFixedSize(100, 20);
     fx_slider->setFixedSize(100, 20);
 
@@ -57,3 +59,10 @@ Settings_Widget::Settings_Widget(QWidget *parent)
 
     this->setLayout(layout3);
 }
+
+
+void Settings_Widget::cancel_slot()
+{
+    emit cancel_signal();
+}
+

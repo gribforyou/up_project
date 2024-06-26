@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    music_sound_level = 0;
+    fx_sound_level = 0;
+
     start_widget = new Start_Widget;
     menu_widget = new Menu_Widget;
     settings_widget = new Settings_Widget;
@@ -17,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(menu_widget, SIGNAL(play_signal()), this, SLOT(playSlot()));
     connect(menu_widget, SIGNAL(settings_signal()), this, SLOT(settingsSlot()));
     connect(menu_widget, SIGNAL(exit_signal()), this, SLOT(exitSlot()));
+
+    connect(settings_widget, SIGNAL(cancel_signal()), this, SLOT(menuSlot()));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -35,6 +40,12 @@ MainWindow::~MainWindow()
 void MainWindow::playSlot()
 {
     takeCentralWidget();
+}
+
+void MainWindow::menuSlot()
+{
+    takeCentralWidget();
+    setCentralWidget(menu_widget);
 }
 
 void MainWindow::settingsSlot()

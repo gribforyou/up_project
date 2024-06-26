@@ -13,8 +13,10 @@ class Settings_Widget : public QWidget
     Q_OBJECT
 public:
     explicit Settings_Widget(QWidget *parent = nullptr);
-
+private slots:
+    void cancel_slot();
 signals:
+    void cancel_signal();
 };
 
 #endif // SETTINGS_WIDGET_H

@@ -28,8 +28,12 @@ private:
     Settings_Widget* settings_widget;
     Ui::MainWindow *ui;
 
+    int music_sound_level;
+    int fx_sound_level;
+
 public slots:
     void playSlot();
+    void menuSlot();
     void settingsSlot();
     void exitSlot();
 };
