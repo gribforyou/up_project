@@ -1,4 +1,5 @@
 #include "menu_widget.h"
+#include <QApplication>
 
 Menu_Widget::Menu_Widget(QWidget *parent)
     : QWidget{parent}
@@ -10,6 +11,10 @@ Menu_Widget::Menu_Widget(QWidget *parent)
     QPushButton* play_button = new QPushButton("play");
     QPushButton* settings_button = new QPushButton("settings");
     QPushButton* exit_button = new QPushButton("exit");
+
+    connect(play_button, SIGNAL(clicked()), this, SLOT(play_slot()));
+    connect(settings_button, SIGNAL(clicked()), this, SLOT(settings_slot()));
+    connect(exit_button, SIGNAL(clicked()), this, SLOT(eixt_slot()));
 
     title->setFont(QFont("Arial", 25));
 
@@ -25,4 +30,19 @@ Menu_Widget::Menu_Widget(QWidget *parent)
     hlayout->addStretch();
 
     this->setLayout(hlayout);
+}
+
+void Menu_Widget::play_slot()
+{
+
+}
+
+void Menu_Widget::settings_slot()
+{
+
+}
+
+void Menu_Widget::exit_slot()
+{
+    exit(0);
 }

@@ -20,6 +20,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         this->takeCentralWidget();
         this->setCentralWidget(this->menu_widget);
     }
+
+    QCoreApplication::quit();
 }
 
 MainWindow::~MainWindow()
