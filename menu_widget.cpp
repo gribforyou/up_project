@@ -14,7 +14,7 @@ Menu_Widget::Menu_Widget(QWidget *parent)
 
     connect(play_button, SIGNAL(clicked()), this, SLOT(play_slot()));
     connect(settings_button, SIGNAL(clicked()), this, SLOT(settings_slot()));
-    connect(exit_button, SIGNAL(clicked()), this, SLOT(eixt_slot()));
+    connect(exit_button, SIGNAL(clicked()), this, SLOT(exit_slot()));
 
     title->setFont(QFont("Arial", 25));
 
@@ -34,15 +34,15 @@ Menu_Widget::Menu_Widget(QWidget *parent)
 
 void Menu_Widget::play_slot()
 {
-
+    emit play_signal();
 }
 
 void Menu_Widget::settings_slot()
 {
-
+    emit settings_signal();
 }
 
 void Menu_Widget::exit_slot()
 {
-    exit(0);
+    emit exit_signal();
 }

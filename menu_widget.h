@@ -17,6 +17,9 @@ private slots:
     void settings_slot();
     void exit_slot();
 signals:
+    void play_signal();
+    void settings_signal();
+    void exit_signal();
 };
 
 #endif // MENU_WIDGET_H

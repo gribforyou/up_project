@@ -25,5 +25,10 @@ private:
     Start_Widget* start_widget;
     Menu_Widget* menu_widget;
     Ui::MainWindow *ui;
+
+public slots:
+    void playSlot();
+    void settingsSlot();
+    void exitSlot();
 };
 #endif // MAINWINDOW_H

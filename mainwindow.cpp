@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(start_widget);
     update();
+
+    connect(menu_widget, SIGNAL(play_signal()), this, SLOT(playSlot()));
+    connect(menu_widget, SIGNAL(settings_signal()), this, SLOT(settingsSlot()));
+    connect(menu_widget, SIGNAL(exit_signal()), this, SLOT(exitSlot()));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -20,11 +24,24 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         this->takeCentralWidget();
         this->setCentralWidget(this->menu_widget);
     }
-
-    QCoreApplication::quit();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::playSlot()
+{
+    takeCentralWidget();
+}
+
+void MainWindow::settingsSlot()
+{
+    takeCentralWidget();
+}
+
+void MainWindow::exitSlot()
+{
+    QCoreApplication::quit();
 }
