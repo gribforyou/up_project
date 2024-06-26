@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QKeyEvent>
+#include "start_widget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,9 +17,11 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    void keyPressEvent(QKeyEvent* event);
     ~MainWindow();
 
 private:
+    Start_Widget* start_widget;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
