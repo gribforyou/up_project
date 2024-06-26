@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include "start_widget.h"
 #include "menu_widget.h"
+#include "settings_widget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,6 +25,7 @@ public:
 private:
     Start_Widget* start_widget;
     Menu_Widget* menu_widget;
+    Settings_Widget* settings_widget;
     Ui::MainWindow *ui;
 
 public slots:

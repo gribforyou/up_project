@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     start_widget = new Start_Widget;
     menu_widget = new Menu_Widget;
+    settings_widget = new Settings_Widget;
 
     setCentralWidget(start_widget);
     update();
@@ -39,6 +40,7 @@ void MainWindow::playSlot()
 void MainWindow::settingsSlot()
 {
     takeCentralWidget();
+    setCentralWidget(settings_widget);
 }
 
 void MainWindow::exitSlot()

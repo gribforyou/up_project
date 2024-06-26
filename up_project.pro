@@ -12,11 +12,13 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menu_widget.cpp \
+    settings_widget.cpp \
     start_widget.cpp
 
 HEADERS += \
     mainwindow.h \
     menu_widget.h \
+    settings_widget.h \
     start_widget.h
 
 FORMS += \
