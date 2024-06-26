@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QKeyEvent>
 #include "start_widget.h"
+#include "menu_widget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,6 +23,7 @@ public:
 
 private:
     Start_Widget* start_widget;
+    Menu_Widget* menu_widget;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
