@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(menu_widget, SIGNAL(exit_signal()), this, SLOT(exitSlot()));
 
     connect(settings_widget, SIGNAL(cancel_signal()), this, SLOT(menuSlot()));
+    connect(settings_widget, SIGNAL(ok_signal(int ,int )), this, SLOT(changeSound(int ,int )));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -50,6 +51,7 @@ void MainWindow::menuSlot()
 
 void MainWindow::settingsSlot()
 {
+    settings_widget->set_sliders(music_sound_level, fx_sound_level);
     takeCentralWidget();
     setCentralWidget(settings_widget);
 }
@@ -57,4 +59,11 @@ void MainWindow::settingsSlot()
 void MainWindow::exitSlot()
 {
     QCoreApplication::quit();
+}
+
+void MainWindow::changeSound(int m, int f)
+{
+    this->music_sound_level = m;
+    this->fx_sound_level = f;
+    menuSlot();
 }

@@ -32,9 +32,11 @@ private:
     int fx_sound_level;
 
 public slots:
+    void changeSound(int m, int f);
     void playSlot();
     void menuSlot();
     void settingsSlot();
     void exitSlot();
+
 };
 #endif // MAINWINDOW_H

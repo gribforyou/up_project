@@ -13,13 +13,14 @@ Settings_Widget::Settings_Widget(QWidget *parent)
     QLabel* music_label = new QLabel("music");
     QLabel* fx_label = new QLabel("fx");
 
-    QSlider* music_slider = new QSlider(Qt::Horizontal);
-    QSlider* fx_slider = new QSlider(Qt::Horizontal);
+    music_slider = new QSlider(Qt::Horizontal);
+    fx_slider = new QSlider(Qt::Horizontal);
 
     QPushButton* ok_button = new QPushButton("ok");
     QPushButton* cancel_button = new QPushButton("cancel");
 
     connect(cancel_button, SIGNAL(clicked()), this, SLOT(cancel_slot()));
+    connect(ok_button, SIGNAL(clicked()), this, SLOT(ok_slot()));
 
     music_slider->setFixedSize(100, 20);
     fx_slider->setFixedSize(100, 20);
@@ -60,9 +61,22 @@ Settings_Widget::Settings_Widget(QWidget *parent)
     this->setLayout(layout3);
 }
 
+void Settings_Widget::set_sliders(int m, int f)
+{
+    music_slider->setValue(m);
+    fx_slider->setValue(f);
+}
+
 
 void Settings_Widget::cancel_slot()
 {
     emit cancel_signal();
+}
+
+void Settings_Widget::ok_slot()
+{
+    int mLevel = music_slider->value();
+    int fLevel = fx_slider->value();
+    emit ok_signal(mLevel, fLevel);
 }
 
