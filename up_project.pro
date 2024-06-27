@@ -10,10 +10,20 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    songlistwidget.cpp \
+    songinfowidget.cpp \
+    songselectmenu.cpp \
+    songinfo.cpp \
+    scoreswidget.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    songlistwidget.h \
+    songinfowidget.h \
+    songselectmenu.h \
+    songinfo.h \
+    scoreswidget.h
 
 FORMS += \
     mainwindow.ui
