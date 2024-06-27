@@ -23,6 +23,11 @@ Start_Widget::Start_Widget() {
     hlayout->addStretch();
 
     this->setLayout(hlayout);
+
+    QPalette* pal = new QPalette();
+    pal->setColor(this->backgroundRole(), Qt::white);
+    this->setPalette(*pal);
+    this->setAutoFillBackground(true);
 }
 
 

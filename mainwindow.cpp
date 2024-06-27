@@ -7,12 +7,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    this->setWindowTitle("The best title ever");
+    this->setFixedSize(this->width(), this->height());
+
     music_sound_level = 0;
     fx_sound_level = 0;
 
     start_widget = new Start_Widget;
     menu_widget = new Menu_Widget;
     settings_widget = new Settings_Widget;
+
+    settings_widget->setFixedSize(260, 170);
+    settings_widget->setWindowTitle("Settings");
 
     setCentralWidget(start_widget);
     update();
@@ -21,8 +27,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(menu_widget, SIGNAL(settings_signal()), this, SLOT(settingsSlot()));
     connect(menu_widget, SIGNAL(exit_signal()), this, SLOT(exitSlot()));
 
-    connect(settings_widget, SIGNAL(cancel_signal()), this, SLOT(menuSlot()));
+    connect(settings_widget, SIGNAL(cancel_signal()), this, SLOT(settingsCancel()));
     connect(settings_widget, SIGNAL(ok_signal(int ,int )), this, SLOT(changeSound(int ,int )));
+
+    settings_widget->setParent(this);
+    settings_widget->move(width()/2-130, height()/2-85);
+    settings_widget->close();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -52,8 +62,8 @@ void MainWindow::menuSlot()
 void MainWindow::settingsSlot()
 {
     settings_widget->set_sliders(music_sound_level, fx_sound_level);
-    takeCentralWidget();
-    setCentralWidget(settings_widget);
+    settings_widget->show();
+    settings_widget->raise();
 }
 
 void MainWindow::exitSlot()
@@ -65,5 +75,13 @@ void MainWindow::changeSound(int m, int f)
 {
     this->music_sound_level = m;
     this->fx_sound_level = f;
-    menuSlot();
+    settings_widget->close();
+    //menuSlot();
 }
+
+void MainWindow::settingsCancel()
+{
+    settings_widget->close();
+}
+
+

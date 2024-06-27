@@ -7,6 +7,7 @@
 #include <QSlider>
 #include <QLabel>
 #include <QPushButton>
+#include <QPalette>
 
 class Settings_Widget : public QWidget
 {

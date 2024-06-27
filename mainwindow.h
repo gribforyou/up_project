@@ -33,6 +33,7 @@ private:
 
 public slots:
     void changeSound(int m, int f);
+    void settingsCancel();
     void playSlot();
     void menuSlot();
     void settingsSlot();

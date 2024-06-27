@@ -30,6 +30,11 @@ Menu_Widget::Menu_Widget(QWidget *parent)
     hlayout->addStretch();
 
     this->setLayout(hlayout);
+
+    QPalette* pal = new QPalette();
+    pal->setColor(this->backgroundRole(), Qt::white);
+    this->setPalette(*pal);
+    this->setAutoFillBackground(true);
 }
 
 void Menu_Widget::play_slot()

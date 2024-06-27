@@ -54,11 +54,16 @@ Settings_Widget::Settings_Widget(QWidget *parent)
 
     layout3->addStretch();
     layout3->addLayout(hlayout1);
-    layout3->addSpacing(-55);
+    layout3->addSpacing(5);
     layout3->addLayout(hlayout2);
     layout3->addStretch();
 
     this->setLayout(layout3);
+
+    QPalette* pal = new QPalette();
+    pal->setColor(this->backgroundRole(), Qt::lightGray);
+    this->setPalette(*pal);
+    this->setAutoFillBackground(true);
 }
 
 void Settings_Widget::set_sliders(int m, int f)
