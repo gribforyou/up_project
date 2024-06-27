@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    songSelectMenu = new SongSelectMenu();
+    songSelectMenu->resize(size());
+    setCentralWidget(songSelectMenu);
 
     this->setWindowTitle("The best title ever");
     this->setFixedSize(this->width(), this->height());

@@ -13,13 +13,24 @@ SOURCES += \
     mainwindow.cpp \
     menu_widget.cpp \
     settings_widget.cpp \
-    start_widget.cpp
+    start_widget.cpp \
+    songlistwidget.cpp \
+    songinfowidget.cpp \
+    songselectmenu.cpp \
+    songinfo.cpp \
+    scoreswidget.cpp
 
 HEADERS += \
     mainwindow.h \
     menu_widget.h \
     settings_widget.h \
-    start_widget.h
+    start_widget.h \
+    mainwindow.h \
+    songlistwidget.h \
+    songinfowidget.h \
+    songselectmenu.h \
+    songinfo.h \
+    scoreswidget.h
 
 FORMS += \
     mainwindow.ui

@@ -6,6 +6,7 @@
 #include "start_widget.h"
 #include "menu_widget.h"
 #include "settings_widget.h"
+#include "songselectmenu.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,7 +28,7 @@ private:
     Menu_Widget* menu_widget;
     Settings_Widget* settings_widget;
     Ui::MainWindow *ui;
-
+    SongSelectMenu *songSelectMenu;
     int music_sound_level;
     int fx_sound_level;
 
@@ -38,6 +39,5 @@ public slots:
     void menuSlot();
     void settingsSlot();
     void exitSlot();
-
 };
 #endif // MAINWINDOW_H
