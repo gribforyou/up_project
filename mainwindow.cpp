@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     songSelectMenu = new SongSelectMenu();
     songSelectMenu->resize(size());
-    setCentralWidget(songSelectMenu);
 
     this->setWindowTitle("The best title ever");
     this->setFixedSize(this->width(), this->height());
@@ -41,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(dynamic_cast<Start_Widget*>(this->centralWidget())){
-        this->takeCentralWidget();
         this->setCentralWidget(this->menu_widget);
     }
 }
@@ -53,12 +51,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::playSlot()
 {
-    takeCentralWidget();
+    setCentralWidget(songSelectMenu);
 }
 
 void MainWindow::menuSlot()
 {
-    takeCentralWidget();
     setCentralWidget(menu_widget);
 }
 
@@ -79,7 +76,6 @@ void MainWindow::changeSound(int m, int f)
     this->music_sound_level = m;
     this->fx_sound_level = f;
     settings_widget->close();
-    //menuSlot();
 }
 
 void MainWindow::settingsCancel()
