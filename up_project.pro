@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    difficultlistwidget.cpp \
     main.cpp \
     mainwindow.cpp \
     menu_widget.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
     levelviewwidget.cpp
 
 HEADERS += \
+    difficultlistwidget.h \
     mainwindow.h \
     menu_widget.h \
     settings_widget.h \

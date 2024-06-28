@@ -13,8 +13,10 @@ SongSelectMenu::SongSelectMenu(QWidget *parent) : QWidget(parent)
 {
     songInfoWidget = new SongInfoWidget();
     songListWidget = new SongListWidget();
+
     QVBoxLayout *verticalLayout = new QVBoxLayout(this);
     QHBoxLayout *horizontalLayout = new QHBoxLayout();
+
     horizontalLayout->addWidget(songInfoWidget, 2);
     QVBoxLayout* vlayout = new QVBoxLayout();
     vlayout->addWidget(new QLabel("Song list:"));
@@ -39,8 +41,10 @@ SongSelectMenu::SongSelectMenu(QWidget *parent) : QWidget(parent)
     songListWidget->updateSongListWidget(songInfoVector);
     connect(songListWidget, &SongListWidget::selectedSongChanged, this, &SongSelectMenu::changeSelectedSong);
     connect(songListWidget, &SongListWidget::songSelected, songInfoWidget, &SongInfoWidget::selectDifficulty);
-    connect(songInfoWidget, &SongInfoWidget::difficultySelected, this, &SongSelectMenu::emitLevelSelected);
+    connect(songInfoWidget->getDifficultListWidget(), &DifficultListWidget::difficultySelected, this, &SongSelectMenu::emitLevelSelected);
     songInfoWidget->loadSongInfo(songInfoVector[0]);
+
+    connect(this->getSongInfoWidget()->getDifficultListWidget(), SIGNAL(backToSongs()), this, SLOT(backToSongs()));
 }
 
 void SongSelectMenu::loadSongInfoVector()
@@ -69,6 +73,16 @@ void SongSelectMenu::loadSongInfoVector()
 SongListWidget *SongSelectMenu::getSongListWidget()
 {
     return this->songListWidget;
+}
+
+SongInfoWidget *SongSelectMenu::getSongInfoWidget()
+{
+    return this->songInfoWidget;
+}
+
+void SongSelectMenu::backToSongs()
+{
+    this->songListWidget->setFocus();
 }
 
 void SongSelectMenu::changeSelectedSong(int song)

@@ -37,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(songSelectMenu->getSongListWidget(), SIGNAL(settingsSignal()), this, SLOT(settingsSlot()));
     connect(songSelectMenu->getSongListWidget(), SIGNAL(exitSignal()), this, SLOT(exitSlot()));
 
+    connect(songSelectMenu->getSongInfoWidget()->getDifficultListWidget(), SIGNAL(difficultSettingsSignal()), this, SLOT(settingsSlot()));
+    connect(songSelectMenu->getSongInfoWidget()->getDifficultListWidget(), SIGNAL(difficultExitSignal()), this, SLOT(exitSlot()));
+
     settings_widget->setParent(this);
     settings_widget->move(width()/2-130, height()/2-85);
     settings_widget->close();

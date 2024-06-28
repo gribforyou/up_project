@@ -13,6 +13,9 @@ public:
     explicit SongSelectMenu(QWidget *parent = 0);
     void loadSongInfoVector();
     SongListWidget *getSongListWidget();
+    SongInfoWidget *getSongInfoWidget();
+
+    void setSongInfoWidget(SongInfoWidget *newSongInfoWidget);
 
 private:
     std::vector <SongInfo> songInfoVector;
@@ -24,6 +27,7 @@ signals:
     void levelSelected(SongInfo, QString);
 
 public slots:
+    void backToSongs();
     void changeSelectedSong(int);
     void emitLevelSelected(QString);
 };

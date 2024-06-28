@@ -2,6 +2,7 @@
 #define SONGINFOWIDGET_H
 
 #include <QWidget>
+#include "difficultlistwidget.h"
 #include "scoreswidget.h"
 #include "songinfo.h"
 
@@ -11,10 +12,10 @@ class SongInfoWidget : public QWidget
 public:
     explicit SongInfoWidget(QWidget *parent = 0);
     void loadSongInfo(SongInfo);
-
+    DifficultListWidget* getDifficultListWidget();
 private:
+    DifficultListWidget* difficulty;
     ScoresWidget *scores;
-    void resizeEvent(QResizeEvent *event) override;
 
 signals:
     void difficultySelected(QString);

@@ -10,10 +10,6 @@
 
 SongListWidget::SongListWidget(QWidget *parent) : QListWidget(parent)
 {
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    QLabel *label = new QLabel("Song List:");
-    //layout->addWidget(label);
-    //layout->addWidget(this);
     connect(this, &QListWidget::currentRowChanged, this, &SongListWidget::emitSelectedSongChanged);
     connect(this, &QListWidget::itemDoubleClicked, this, &SongListWidget::emitSongSelected);
 }
@@ -25,7 +21,6 @@ void SongListWidget::showEvent(QShowEvent *event)
 
 void SongListWidget::keyPressEvent(QKeyEvent *event)
 {
-    //qDebug() << event->key();
     if (event->key() == 16777220) {
         emit songSelected();
         return;
