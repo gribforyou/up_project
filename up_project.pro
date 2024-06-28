@@ -19,7 +19,8 @@ SOURCES += \
     songselectmenu.cpp \
     songinfo.cpp \
     scoreswidget.cpp \
-    gameplaywidget.cpp
+    gameplaywidget.cpp \
+    levelviewwidget.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -32,7 +33,8 @@ HEADERS += \
     songselectmenu.h \
     songinfo.h \
     scoreswidget.h \
-    gameplaywidget.h
+    gameplaywidget.h \
+    levelviewwidget.h
 
 FORMS += \
     mainwindow.ui
