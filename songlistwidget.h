@@ -6,7 +6,7 @@
 #include <QListWidget>
 #include "songinfo.h"
 
-class SongListWidget : public QWidget
+class SongListWidget : public QListWidget
 {
     Q_OBJECT
 public:
@@ -14,15 +14,14 @@ public:
 
 private:
     QList <std::pair <QString, QString>> songList;
-    QListWidget *listWidget;
-    void resizeEvent(QResizeEvent *event) override;
     void showEvent(QShowEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
 
 signals:
     void selectedSongChanged(int);
     void songSelected();
-
+    void settingsSignal();
+    void exitSignal();
 private slots:
     void emitSelectedSongChanged(int);
     void emitSongSelected();

@@ -12,6 +12,7 @@ class SongSelectMenu : public QWidget
 public:
     explicit SongSelectMenu(QWidget *parent = 0);
     void loadSongInfoVector();
+    SongListWidget *getSongListWidget();
 
 private:
     std::vector <SongInfo> songInfoVector;

@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(settings_widget, SIGNAL(cancel_signal()), this, SLOT(settingsCancel()));
     connect(settings_widget, SIGNAL(ok_signal(int ,int )), this, SLOT(changeSound(int ,int )));
 
+    connect(songSelectMenu->getSongListWidget(), SIGNAL(settingsSignal()), this, SLOT(settingsSlot()));
+    connect(songSelectMenu->getSongListWidget(), SIGNAL(exitSignal()), this, SLOT(exitSlot()));
+
     settings_widget->setParent(this);
     settings_widget->move(width()/2-130, height()/2-85);
     settings_widget->close();
@@ -64,6 +67,7 @@ void MainWindow::menuSlot()
 void MainWindow::settingsSlot()
 {
     settings_widget->set_sliders(music_sound_level, fx_sound_level);
+    centralWidget()->setEnabled(false);
     settings_widget->show();
     settings_widget->raise();
 }
@@ -83,11 +87,13 @@ void MainWindow::changeSound(int m, int f)
     this->music_sound_level = m;
     this->fx_sound_level = f;
     settings_widget->close();
+    centralWidget()->setEnabled(true);
 }
 
 void MainWindow::settingsCancel()
 {
     settings_widget->close();
+    centralWidget()->setEnabled(true);
 }
 
 

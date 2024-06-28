@@ -16,7 +16,10 @@ SongSelectMenu::SongSelectMenu(QWidget *parent) : QWidget(parent)
     QVBoxLayout *verticalLayout = new QVBoxLayout(this);
     QHBoxLayout *horizontalLayout = new QHBoxLayout();
     horizontalLayout->addWidget(songInfoWidget, 2);
-    horizontalLayout->addWidget(songListWidget, 1);
+    QVBoxLayout* vlayout = new QVBoxLayout();
+    vlayout->addWidget(new QLabel("Song list:"));
+    vlayout->addWidget(songListWidget);
+    horizontalLayout->addLayout(vlayout, 1);
     verticalLayout->addLayout(horizontalLayout);
     horizontalLayout = new QHBoxLayout();
     QLabel *label = new QLabel();
@@ -61,6 +64,11 @@ void SongSelectMenu::loadSongInfoVector()
             songInfoVector.push_back(songInfo);
         };
     };
+}
+
+SongListWidget *SongSelectMenu::getSongListWidget()
+{
+    return this->songListWidget;
 }
 
 void SongSelectMenu::changeSelectedSong(int song)
