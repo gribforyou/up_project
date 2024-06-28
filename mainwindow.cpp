@@ -49,7 +49,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(dynamic_cast<Start_Widget*>(this->centralWidget())){
         this->setCentralWidget(this->menu_widget);
-    }
+    };
+    if(dynamic_cast<GameplayWidget*>(this->centralWidget())){
+        gameplayWidget->keyPressEvent(event);
+    };
 }
 
 MainWindow::~MainWindow()

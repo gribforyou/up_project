@@ -11,6 +11,7 @@ public:
     explicit LevelViewWidget(QWidget *parent = 0);
     void paintEvent(QPaintEvent *event) override;
     void setupLevelView(double*);
+    bool check();
 
 private:
     std::vector <std::vector <std::pair <int, int>>> waitingNotes, visibleNotes;

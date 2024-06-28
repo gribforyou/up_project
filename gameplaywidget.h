@@ -6,6 +6,7 @@
 #include "levelviewwidget.h"
 #include <vector>
 #include <QTimer>
+#include <QMediaPlayer>
 
 class GameplayWidget : public QWidget
 {
@@ -16,13 +17,18 @@ public:
     void startLevel();
 
 private:
-    QTimer timer;
-    int interval = 25;
+    QTimer timer, countInTimer;
+    int interval = 25, countInTime;
     double time;
+    int bpm = 172;
     LevelViewWidget *levelViewWidget;
+    QMediaPlayer *songPlayer;
+    void showEvent(QShowEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 private slots:
     void updateTime();
+    void countIn();
 
 signals:
 

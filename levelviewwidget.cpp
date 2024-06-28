@@ -6,7 +6,7 @@ LevelViewWidget::LevelViewWidget(QWidget *parent) : QWidget(parent)
 {
     waitingNotes.resize(4);
     visibleNotes.resize(4);
-    visibleNotes[0].push_back(std::make_pair(500, 100));
+    visibleNotes[0].push_back(std::make_pair(0, 100));
 }
 
 void LevelViewWidget::paintEvent(QPaintEvent *event)
@@ -35,6 +35,11 @@ void LevelViewWidget::setupLevelView(double *time)
 {
     this->visibleNotes = visibleNotes;
     this->time = time;
+}
+
+bool LevelViewWidget::check()
+{
+    return (abs((*time) - visibleNotes[0][0].second) * 1000 <= 1000);
 }
 
 void LevelViewWidget::updateLevelView()
