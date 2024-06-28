@@ -15,14 +15,16 @@ public:
 
 private:
     std::vector <SongInfo> songInfoVector;
+    int selectedSong = 0;
     SongListWidget *songListWidget;
     SongInfoWidget *songInfoWidget;
 
 signals:
+    void levelSelected(SongInfo, QString);
 
 public slots:
-    void loadSongInfo(int);
     void changeSelectedSong(int);
+    void emitLevelSelected(QString);
 };
 
 #endif // SONGSELECTMENU_H

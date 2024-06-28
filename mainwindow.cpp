@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     songSelectMenu = new SongSelectMenu();
     songSelectMenu->resize(size());
+    connect(songSelectMenu, &SongSelectMenu::levelSelected, this, &MainWindow::showGameplayWidget);
+    gameplayWidget = new GameplayWidget();
 
     this->setWindowTitle("The best title ever");
     this->setFixedSize(this->width(), this->height());
@@ -69,6 +71,11 @@ void MainWindow::settingsSlot()
 void MainWindow::exitSlot()
 {
     QCoreApplication::quit();
+}
+
+void MainWindow::showGameplayWidget(SongInfo, QString)
+{
+    setCentralWidget(gameplayWidget);
 }
 
 void MainWindow::changeSound(int m, int f)

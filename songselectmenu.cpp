@@ -34,7 +34,9 @@ SongSelectMenu::SongSelectMenu(QWidget *parent) : QWidget(parent)
     verticalLayout->addLayout(horizontalLayout);
     loadSongInfoVector();
     songListWidget->updateSongListWidget(songInfoVector);
-    connect(songListWidget, &SongListWidget::selectedSongChanged, this, &SongSelectMenu::loadSongInfo);
+    connect(songListWidget, &SongListWidget::selectedSongChanged, this, &SongSelectMenu::changeSelectedSong);
+    connect(songListWidget, &SongListWidget::songSelected, songInfoWidget, &SongInfoWidget::selectDifficulty);
+    connect(songInfoWidget, &SongInfoWidget::difficultySelected, this, &SongSelectMenu::emitLevelSelected);
     songInfoWidget->loadSongInfo(songInfoVector[0]);
 }
 
@@ -61,12 +63,13 @@ void SongSelectMenu::loadSongInfoVector()
     };
 }
 
-void SongSelectMenu::loadSongInfo(int row)
+void SongSelectMenu::changeSelectedSong(int song)
 {
-    songInfoWidget->loadSongInfo(songInfoVector[row]);
+    songInfoWidget->loadSongInfo(songInfoVector[song]);
+    selectedSong = song;
 }
 
-void SongSelectMenu::changeSelectedSong(int)
+void SongSelectMenu::emitLevelSelected(QString difficulty)
 {
-
+    emit levelSelected(songInfoVector[selectedSong], difficulty);
 }

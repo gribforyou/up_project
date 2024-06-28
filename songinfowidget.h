@@ -17,8 +17,11 @@ private:
     void resizeEvent(QResizeEvent *event) override;
 
 signals:
+    void difficultySelected(QString);
 
 public slots:
+    void selectDifficulty();
+    void emitDifficultySelected();
 };
 
 #endif // SONGINFOWIDGET_H
