@@ -43,7 +43,6 @@ GameplayWidget::GameplayWidget(QWidget *parent) : QWidget(parent)
     label->setAlignment(Qt::AlignHCenter);
     horizontalLayout->addWidget(label);
     verticalLayout->addLayout(horizontalLayout);
-    connect(&countInTimer, &QTimer::timeout, this, &GameplayWidget::countIn);
     connect(&timer, &QTimer::timeout, this, &GameplayWidget::updateTime);
     connect(&timer, &QTimer::timeout, levelViewWidget, &LevelViewWidget::updateLevelView);
     songPlayer.setVolume(10);
@@ -94,6 +93,7 @@ void GameplayWidget::showEvent(QShowEvent *event)
     time = 0;
     connect(&timer, &QTimer::timeout, this, &GameplayWidget::countIn);
     timer.start(interval);
+    isPaused = false;
 }
 
 void GameplayWidget::hideEvent(QHideEvent *event)
@@ -103,7 +103,16 @@ void GameplayWidget::hideEvent(QHideEvent *event)
 
 void GameplayWidget::keyPressEvent(QKeyEvent *event)
 {
-    if ((event->key() == Qt::Key_D || event->key() == Qt::Key_F || event->key() == Qt::Key_J || event->key() == Qt::Key_K) && event->isAutoRepeat() == false) {
+    if (event->key() == Qt::Key_S) {
+        pause();
+    };
+    if (event->key() == 16777220 && event->isAutoRepeat() == false) {
+        if (isPaused)
+            resume();
+        else
+            pause();
+    };
+    if (isPaused == false && (event->key() == Qt::Key_D || event->key() == Qt::Key_F || event->key() == Qt::Key_J || event->key() == Qt::Key_K) && event->isAutoRepeat() == false) {
         QMediaPlayer *tapSoundPlayer;
         if (event->key() == Qt::Key_D) {
             tapSoundPlayer = tapSoundPlayers[0];
@@ -135,7 +144,7 @@ void GameplayWidget::keyPressEvent(QKeyEvent *event)
 
 void GameplayWidget::keyReleaseEvent(QKeyEvent *event)
 {
-    if (event->isAutoRepeat() == false) {
+    if (isPaused == false && event->isAutoRepeat() == false) {
         QMediaPlayer *tapSoundPlayer;
         if (event->key() == Qt::Key_D) {
             tapSoundPlayer = tapSoundPlayers[0];
@@ -164,6 +173,31 @@ void GameplayWidget::keyReleaseEvent(QKeyEvent *event)
                     tapSoundPlayer->play();
         };
     };
+}
+
+void GameplayWidget::setMusicVolume(int n)
+{
+    songPlayer.setVolume(n);
+}
+
+void GameplayWidget::setFxVolume(int n)
+{
+    for (int i = 0; i < 4; i++)
+        tapSoundPlayers[i]->setVolume(n);
+}
+
+void GameplayWidget::pause()
+{
+    timer.stop();
+    songPlayer.pause();
+    isPaused = true;
+}
+
+void GameplayWidget::resume()
+{
+    timer.start(interval);
+    songPlayer.play();
+    isPaused = false;
 }
 
 void GameplayWidget::updateTime()

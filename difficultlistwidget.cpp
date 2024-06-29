@@ -9,7 +9,7 @@ DifficultListWidget::DifficultListWidget(QWidget *parent)
     this->addItem(new QListWidgetItem("easy"));
     this->addItem(new QListWidgetItem("normal"));
     this->addItem(new QListWidgetItem("hard"));
-
+    setCurrentRow(0);
     this->setFixedHeight(35);
 }
 

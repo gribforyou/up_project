@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle("The best title ever");
     this->setFixedSize(this->width(), this->height());
 
-    music_sound_level = 0;
-    fx_sound_level = 0;
+    music_sound_level = 5;
+    fx_sound_level = 5;
 
     start_widget = new Start_Widget;
     menu_widget = new Menu_Widget;
@@ -61,8 +61,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     if(dynamic_cast<Start_Widget*>(this->centralWidget())){
         this->setCentralWidget(this->menu_widget);
     };
-    if((event->key() == Qt::Key_D || event->key() == Qt::Key_F || event->key() == Qt::Key_J || event->key() == Qt::Key_K) && dynamic_cast<GameplayWidget*>(this->centralWidget())){
-        gameplayWidget->keyPressEvent(event);
+    if((event->key() == 16777220 || event->key() == Qt::Key_D || event->key() == Qt::Key_F || event->key() == Qt::Key_J || event->key() == Qt::Key_K) && dynamic_cast<GameplayWidget*>(this->centralWidget())){
+        if (settings_widget->isVisible() == false)
+            gameplayWidget->keyPressEvent(event);
+    };
+    if (event->key() == Qt::Key_S && event->isAutoRepeat() == false) {
+        if (dynamic_cast<GameplayWidget*>(this->centralWidget()))
+            gameplayWidget->keyPressEvent(event);
+        settingsSlot();
     };
 }
 
@@ -117,13 +123,16 @@ void MainWindow::changeSound(int m, int f)
 {
     this->music_sound_level = m;
     this->fx_sound_level = f;
-    settings_widget->close();
+    gameplayWidget->setMusicVolume(m);
+    gameplayWidget->setFxVolume(f);
+    songSelectMenu->setMusicVolume(m);
+    settings_widget->hide();
     centralWidget()->setEnabled(true);
 }
 
 void MainWindow::settingsCancel()
 {
-    settings_widget->close();
+    settings_widget->hide();
     centralWidget()->setEnabled(true);
 }
 

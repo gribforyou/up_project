@@ -85,6 +85,11 @@ int SongSelectMenu::getSelectedSong() const
     return selectedSong;
 }
 
+void SongSelectMenu::setMusicVolume(int n)
+{
+    previewPlayer.setVolume(n);
+}
+
 void SongSelectMenu::hideEvent(QHideEvent *event)
 {
     previewPlayer.stop();

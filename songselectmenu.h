@@ -17,6 +17,7 @@ public:
     SongInfoWidget *getSongInfoWidget();
     int getSelectedSong() const;
     void setSongInfoWidget(SongInfoWidget *newSongInfoWidget);
+    void setMusicVolume(int);
 
 private:
     QMediaPlayer previewPlayer;

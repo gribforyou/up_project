@@ -20,10 +20,15 @@ public:
     double getSongTime();
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
+    void setMusicVolume(int);
+    void setFxVolume(int);
 
 private:
-    QTimer timer, countInTimer;
-    int interval = 25, countInTime;
+    bool isPaused;
+    void pause();
+    void resume();
+    QTimer timer;
+    int interval = 25;
     double time;
     int bpm, offset;
     double spb;

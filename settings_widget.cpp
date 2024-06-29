@@ -14,7 +14,9 @@ Settings_Widget::Settings_Widget(QWidget *parent)
     QLabel* fx_label = new QLabel("fx");
 
     music_slider = new QSlider(Qt::Horizontal);
+    music_slider->setMaximum(10);
     fx_slider = new QSlider(Qt::Horizontal);
+    fx_slider->setMaximum(10);
 
     QPushButton* ok_button = new QPushButton("ok");
     QPushButton* cancel_button = new QPushButton("cancel");
