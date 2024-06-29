@@ -25,11 +25,11 @@ void SongListWidget::keyPressEvent(QKeyEvent *event)
         emit songSelected();
         return;
     }
-    if(event->key() == Qt::Key_S){
+    if(event->key() == Qt::Key_S || event->key() == 1067){
         emit settingsSignal();
         return;
     }
-    if(event->key() == Qt::Key_E){
+    if(event->key() == Qt::Key_E || event->key()==1059){
         emit exitSignal();
         return;
     }

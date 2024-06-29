@@ -14,13 +14,14 @@ DifficultListWidget::DifficultListWidget(QWidget *parent)
 
 void DifficultListWidget::keyPressEvent(QKeyEvent *event)
 {
+    qDebug() << event->key();
     if(event->key()==16777220){
         emitDifficultySelected();
     }
-    if(event->key() == Qt::Key_S){
+    if(event->key() == Qt::Key_S || event->key() == 1067){
         emit difficultSettingsSignal();
     }
-    if(event->key() == Qt::Key_E){
+    if(event->key() == Qt::Key_E || event->key() == 1059){
         emit difficultExitSignal();
     }
     if(event->key() == Qt::Key_Backspace){
