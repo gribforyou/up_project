@@ -36,9 +36,9 @@ void SongListWidget::keyPressEvent(QKeyEvent *event)
     QListWidget::keyPressEvent(event);
 }
 
-void SongListWidget::emitSelectedSongChanged(int row)
+void SongListWidget::emitSelectedSongChanged(int selectedSong)
 {
-    emit selectedSongChanged(row);
+    emit selectedSongChanged(selectedSong);
 }
 
 void SongListWidget::emitSongSelected()

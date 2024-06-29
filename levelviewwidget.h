@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <vector>
+#include "gameplaywidget.h"
+
+class GameplayWidget;
 
 class LevelViewWidget : public QWidget
 {
@@ -10,13 +13,14 @@ class LevelViewWidget : public QWidget
 public:
     explicit LevelViewWidget(QWidget *parent = 0);
     void paintEvent(QPaintEvent *event) override;
-    void setupLevelView(double*);
-    bool check();
+    void setupLevelView(GameplayWidget*, std::vector <bool>*, std::vector <std::vector <std::pair <int, int>>>*, double*, int*);
 
 private:
-    std::vector <std::vector <std::pair <int, int>>> waitingNotes, visibleNotes;
-    int noteSpeed = 100;
-    double *time;
+    std::vector <std::vector <std::pair <int, int>>> *notesVector;
+    int pps = 200, *offset;
+    double *spb;
+    std::vector <bool> *isActive;
+    GameplayWidget *gameplayWidget;
 
 signals:
 

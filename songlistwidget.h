@@ -22,6 +22,7 @@ signals:
     void songSelected();
     void settingsSignal();
     void exitSignal();
+
 private slots:
     void emitSelectedSongChanged(int);
     void emitSongSelected();

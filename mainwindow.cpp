@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -47,11 +49,27 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
+    if (event->key() == Qt::Key_Escape) {
+        if (dynamic_cast<GameplayWidget*>(this->centralWidget())) {
+            gameplayWidget = dynamic_cast<GameplayWidget*>(takeCentralWidget());
+            setCentralWidget(songSelectMenu);
+            songSelectMenu->changeSelectedSong(songSelectMenu->getSelectedSong());
+        }
+        else
+            QCoreApplication::quit();
+    };
     if(dynamic_cast<Start_Widget*>(this->centralWidget())){
         this->setCentralWidget(this->menu_widget);
     };
-    if(dynamic_cast<GameplayWidget*>(this->centralWidget())){
+    if((event->key() == Qt::Key_D || event->key() == Qt::Key_F || event->key() == Qt::Key_J || event->key() == Qt::Key_K) && dynamic_cast<GameplayWidget*>(this->centralWidget())){
         gameplayWidget->keyPressEvent(event);
+    };
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if((event->key() == Qt::Key_D || event->key() == Qt::Key_F || event->key() == Qt::Key_J || event->key() == Qt::Key_K) && dynamic_cast<GameplayWidget*>(this->centralWidget())){
+        gameplayWidget->keyReleaseEvent(event);
     };
 }
 
@@ -63,6 +81,7 @@ MainWindow::~MainWindow()
 void MainWindow::playSlot()
 {
     setCentralWidget(songSelectMenu);
+    songSelectMenu->changeSelectedSong(0);
 }
 
 void MainWindow::menuSlot()
@@ -83,9 +102,15 @@ void MainWindow::exitSlot()
     QCoreApplication::quit();
 }
 
-void MainWindow::showGameplayWidget(SongInfo, QString)
+void MainWindow::showGameplayWidget(SongInfo songInfo, QString difficulty)
 {
-    setCentralWidget(gameplayWidget);
+    if (gameplayWidget->loadLevel(songInfo, difficulty)) {
+        if (dynamic_cast<SongSelectMenu*>(this->centralWidget()))
+            songSelectMenu = dynamic_cast<SongSelectMenu*>(takeCentralWidget());
+        setCentralWidget(gameplayWidget);
+    }
+    else
+        QMessageBox::information(this, "Error", "Level file not found");
 }
 
 void MainWindow::changeSound(int m, int f)

@@ -1,12 +1,10 @@
 #include "levelviewwidget.h"
 
 #include <QPainter>
+#include <QDebug>
 
 LevelViewWidget::LevelViewWidget(QWidget *parent) : QWidget(parent)
 {
-    waitingNotes.resize(4);
-    visibleNotes.resize(4);
-    visibleNotes[0].push_back(std::make_pair(0, 100));
 }
 
 void LevelViewWidget::paintEvent(QPaintEvent *event)
@@ -18,38 +16,42 @@ void LevelViewWidget::paintEvent(QPaintEvent *event)
     painter.scale(1, -1);
     painter.setBrush(Qt::gray);
     for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < visibleNotes[i].size(); j++) {
-            std::pair <int, int> note = visibleNotes[i][j];
-            int notePos = std::max(0., note.first - noteSpeed * (*time));
-            painter.drawRect(columnWidth * i, notePos, columnWidth, note.second + (note.first - noteSpeed * (*time) - notePos));
+        for (int j = 0; j < (*notesVector)[i].size(); j++) {
+            std::pair <int, int> note = (*notesVector)[i][j];
+            double noteStart = note.first * (*spb) + (*offset) / 1000., noteLength = note.second * (*spb);
+            double notePos = std::max(0., noteStart - gameplayWidget->getSongTime());
+            painter.drawRect(columnWidth * i, std::max(0., notePos * pps - 2.5), columnWidth, std::max(0., std::min(columnHeight - notePos * pps, (noteLength + (noteStart - gameplayWidget->getSongTime() - notePos)) * pps + 5)));
         };
     };
+    painter.setBrush(Qt::black);
+    for (int i = 0; i < 4; i++)
+        if ((*isActive)[i])
+            painter.drawRect(columnWidth * i, 0, columnWidth, 5);
     painter.setBrush(Qt::NoBrush);
     for (int i = 0; i < 5; i++)
         painter.drawLine(columnWidth * i, 0, columnWidth * i, columnHeight);
-    painter.drawLine(0, 20, columnWidth * 4, 20);
-    painter.drawLine(0, 25, columnWidth * 4, 25);
+    painter.drawLine(0, 0, columnWidth * 4, 0);
+    painter.drawLine(0, 5, columnWidth * 4, 5);
 }
 
-void LevelViewWidget::setupLevelView(double *time)
+void LevelViewWidget::setupLevelView(GameplayWidget *gameplayWidget, std::vector <bool> *isActive, std::vector <std::vector <std::pair <int, int>>> *notesVector, double *spb, int *offset)
 {
-    this->visibleNotes = visibleNotes;
-    this->time = time;
-}
-
-bool LevelViewWidget::check()
-{
-    return (abs((*time) - visibleNotes[0][0].second) * 1000 <= 1000);
+    this->gameplayWidget = gameplayWidget;
+    this->isActive = isActive;
+    this->notesVector = notesVector;
+    this->spb = spb;
+    this->offset = offset;
 }
 
 void LevelViewWidget::updateLevelView()
 {
     for (int i = 0; i < 4; i++) {
         int j = 0;
-        while (j < visibleNotes[i].size()) {
-            std::pair <int, int> note = visibleNotes[i][j];
-            if (note.second + (note.first - noteSpeed * (*time) - std::max(0., note.first - noteSpeed * (*time))) <= 0)
-                    visibleNotes[i].erase(visibleNotes[i].begin() + j);
+        while (j < (*notesVector)[i].size()) {
+            std::pair <int, int> note = (*notesVector)[i][j];
+            double noteStart = note.first * (*spb) + (*offset) / 1000., noteLength = note.second * (*spb);
+            if (noteStart < 0 && noteLength + (noteStart - gameplayWidget->getSongTime() - std::max(0., noteStart - gameplayWidget->getSongTime())) < 0)
+                    (*notesVector)[i].erase((*notesVector)[i].begin() + j);
             else
                 j++;
         };

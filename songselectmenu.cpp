@@ -43,7 +43,7 @@ SongSelectMenu::SongSelectMenu(QWidget *parent) : QWidget(parent)
     connect(songListWidget, &SongListWidget::songSelected, songInfoWidget, &SongInfoWidget::selectDifficulty);
     connect(songInfoWidget->getDifficultListWidget(), &DifficultListWidget::difficultySelected, this, &SongSelectMenu::emitLevelSelected);
     songInfoWidget->loadSongInfo(songInfoVector[0]);
-
+    previewPlayer.setVolume(20);
     connect(this->getSongInfoWidget()->getDifficultListWidget(), SIGNAL(backToSongs()), this, SLOT(backToSongs()));
 }
 
@@ -80,15 +80,28 @@ SongInfoWidget *SongSelectMenu::getSongInfoWidget()
     return this->songInfoWidget;
 }
 
+int SongSelectMenu::getSelectedSong() const
+{
+    return selectedSong;
+}
+
+void SongSelectMenu::hideEvent(QHideEvent *event)
+{
+    previewPlayer.stop();
+}
+
 void SongSelectMenu::backToSongs()
 {
     this->songListWidget->setFocus();
 }
 
-void SongSelectMenu::changeSelectedSong(int song)
+void SongSelectMenu::changeSelectedSong(int selectedSong)
 {
-    songInfoWidget->loadSongInfo(songInfoVector[song]);
-    selectedSong = song;
+    SongInfo songInfo = songInfoVector[selectedSong];
+    previewPlayer.setMedia(QUrl::fromLocalFile("audio/previews/" + songInfo.getId() + ".mp3"));
+    previewPlayer.play();
+    songInfoWidget->loadSongInfo(songInfo);
+    this->selectedSong = selectedSong;
 }
 
 void SongSelectMenu::emitLevelSelected(QString difficulty)

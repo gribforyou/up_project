@@ -39,7 +39,13 @@ SongInfoWidget::SongInfoWidget(QWidget *parent) : QWidget(parent)
 
 void SongInfoWidget::loadSongInfo(SongInfo songInfo)
 {
-    findChild<QLabel*>("title")->setText(songInfo.getTitle());
+    findChild<QLabel*>("title")->setText(songInfo.getTitle() + " by " + songInfo.getAuthor());
+
+    QPixmap pixmap;
+    pixmap.load("covers/" + songInfo.getId() + ".png");
+    QLabel *coverLabel = findChild<QLabel*>("cover");
+    coverLabel->setPixmap(pixmap.scaled(coverLabel->width(), coverLabel->height(), Qt::KeepAspectRatio));
+
     scores->loadSongScores(songInfo.getId());
 }
 

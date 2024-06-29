@@ -1,4 +1,5 @@
 #include "difficultlistwidget.h"
+#include <QDebug>
 
 DifficultListWidget::DifficultListWidget(QWidget *parent)
     : QListWidget{parent}

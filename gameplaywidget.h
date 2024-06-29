@@ -8,23 +8,32 @@
 #include <QTimer>
 #include <QMediaPlayer>
 
+class LevelViewWidget;
+
 class GameplayWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit GameplayWidget(QWidget *parent = 0);
-    void loadLevel(SongInfo, QString);
+    bool loadLevel(SongInfo, QString);
     void startLevel();
+    double getSongTime();
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 
 private:
     QTimer timer, countInTimer;
     int interval = 25, countInTime;
     double time;
-    int bpm = 172;
+    int bpm, offset;
+    double spb;
     LevelViewWidget *levelViewWidget;
-    QMediaPlayer *songPlayer;
+    QMediaPlayer songPlayer;
+    std::vector <QMediaPlayer*> tapSoundPlayers;
     void showEvent(QShowEvent *event);
-    void keyPressEvent(QKeyEvent *event);
+    std::vector <bool> isActive;
+    std::vector <std::vector <std::pair <int, int>>> notesVector;
+    void hideEvent(QHideEvent *event);
 
 private slots:
     void updateTime();
